@@ -37,7 +37,16 @@ public class PuzzleSolver {
         model.numberOfShuffles = input.getInteger(false, 0, 0, 0, "Number of shuffle moves desired? (press ENTER alone to specify starting board):");
         
         if(model.numberOfShuffles == 0){
-            
+            for (int i = 0; i < model.puzzle.length; i++) {
+                for (int j = 0; j < model.puzzle[0].length; j++) {
+                    model.puzzle[i][j] = input.getInteger(false, 0, 0, 0, "[" + i + ", " + j + "] = ");
+                }
+            }
+        }else{
+            //shuffle yourself
+            for(int i = 0; i < model.numberOfShuffles; i++){
+                shuffle(model.puzzle);
+            }
         }
         
         String str = input.getKeyboardInput("Show intermediate board positions? (Y/N: Default=N)");
@@ -50,7 +59,11 @@ public class PuzzleSolver {
         model.searchMode = input.getInteger(true, 0, 0, 2, "Search mode (1=breadth-first (default); 2=best-first):");
         return model;
     }
-
+    
+    private static void shuffle(int[][] puzzle) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     private static int[][] generatePuzzle(int puzzleSize) {
         int[][] puzzle = new int[0][0];
         switch(puzzleSize){
@@ -78,18 +91,18 @@ public class PuzzleSolver {
         int counter = 1;
         for (int i = 0; i < puzzle.length; i++) {
             for (int j = 0; j < puzzle[0].length; j++) {
-                if(counter == puzzleSize + 1){
+                if (counter == puzzleSize + 1) {
                     //give it the empty space
                     puzzle[i][j] = 0;
-                }else{
+                } else {
                     //populate the array
                     puzzle[i][j] = counter;
                     counter++;
                 }
-                
-                
+
             }
         }
+        
         return puzzle;
     }
 }
