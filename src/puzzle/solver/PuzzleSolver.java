@@ -4,7 +4,7 @@ public class PuzzleSolver {
 
     public static void main(String[] args) {
         PuzzleSolverModel model = getModelParameters();
-        
+        printPuzzle(model.puzzle);
         switch(model.searchMode){
             case 1:
                 breadthFirst(model);
@@ -45,7 +45,7 @@ public class PuzzleSolver {
         }else{
             //shuffle yourself
             for(int i = 0; i < model.numberOfShuffles; i++){
-                shuffle(model.puzzle);
+                //shuffle(model.puzzle);
             }
         }
         
@@ -102,7 +102,21 @@ public class PuzzleSolver {
 
             }
         }
-        
         return puzzle;
+    }
+    
+    private static void printPuzzle(int[][] puzzle){
+        System.out.println("");
+        for(int i = 0; i < puzzle.length; i++){
+            for (int j = 0; j < puzzle[0].length; j++) {
+                if(puzzle[i][j] != 0){
+                    System.out.print(puzzle[i][j] + "\t");
+                }else{
+                    System.out.print("[] \t");
+                }
+                
+            }
+            System.out.println("");
+        }
     }
 }
