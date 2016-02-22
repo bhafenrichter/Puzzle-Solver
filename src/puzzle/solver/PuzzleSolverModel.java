@@ -5,7 +5,7 @@ public class PuzzleSolverModel {
     int numberOfShuffles;
     boolean isShowIntermediateStates;
     int searchMode;
-    int[][] puzzle;
+    Node[][] puzzle;
     public PuzzleSolverModel(){
         searchMode = 1;
     }
