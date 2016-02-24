@@ -7,7 +7,7 @@ public class PuzzleSolver {
 
     public static void main(String[] args) {
         PuzzleSolverModel model = getModelParameters();
-        printPuzzle(model.puzzle);
+        printPuzzle(model.root.puzzle);
         switch(model.searchMode){
             case 1:
                 breadthFirst(model);
@@ -20,8 +20,12 @@ public class PuzzleSolver {
                 break;
         }
     }
+    
     private static void breadthFirst(PuzzleSolverModel model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedQueue open = new LinkedQueue();
+        LinkedQueue closed = new LinkedQueue();
+        
+        
     }
 
     private static void bestFirst(PuzzleSolverModel model) {
@@ -35,21 +39,19 @@ public class PuzzleSolver {
         
         model.puzzleSize = input.getInteger(true, 0, 0, 35, "Specify the puzzle size (8, 15, 24, or 35; 0 to exit):");
         
-        model.puzzle = generatePuzzle(model.puzzleSize);
-        
+        model.goalState = generatePuzzle(model.puzzleSize);
         model.numberOfShuffles = input.getInteger(false, 0, 0, 0, "Number of shuffle moves desired? (press ENTER alone to specify starting board):");
         
         if(model.numberOfShuffles == 0){
-            for (int i = 0; i < model.puzzle.length; i++) {
-                for (int j = 0; j < model.puzzle[0].length; j++) {
-                    model.puzzle[i][j] = new Node(i,j,input.getInteger(false, 0, 0, 0, "[" + i + ", " + j + "] = "));
+            for (int i = 0; i < model.root.puzzle.length; i++) {
+                for (int j = 0; j < model.root.puzzle[0].length; j++) {
+                    model.root.puzzle[i][j] = new Node(i,j,input.getInteger(false, 0, 0, 0, "[" + i + ", " + j + "] = "));
                 }
             }
         }else{
-            //shuffle yourself
-            shuffle(model.puzzle, model.numberOfShuffles);
+            //shuffle yourself (generate puzzle again because pass by reference sucks in Java
+            model.root.puzzle = shuffle(generatePuzzle(model.puzzleSize), model.numberOfShuffles);
         }
-        
         String str = input.getKeyboardInput("Show intermediate board positions? (Y/N: Default=N)");
         if(str.toLowerCase().equals("Y") || str.toLowerCase().equals("Yes")){
             model.isShowIntermediateStates = true;
@@ -153,6 +155,17 @@ public class PuzzleSolver {
             }
         }
         return puzzle;
+    }
+    
+    private static boolean comparePuzzles(Node[][] p1, Node[][] p2){
+        for (int i = 0; i < p1.length; i++) {
+            for (int j = 0; j < p1[0].length; j++) {
+                if(p1[i][j].value != p2[i][j].value){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     private static void printPuzzle(Node[][] puzzle){

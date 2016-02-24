@@ -5,8 +5,10 @@ public class PuzzleSolverModel {
     int numberOfShuffles;
     boolean isShowIntermediateStates;
     int searchMode;
-    Node[][] puzzle;
+    PuzzleNode root;
+    Node[][] goalState;
     public PuzzleSolverModel(){
         searchMode = 1;
+        root = new PuzzleNode();
     }
 }
