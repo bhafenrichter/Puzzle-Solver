@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package puzzle.solver;
 
-public class Node {
+public class Node implements Cloneable{
     public int x;
     public int y;
     public int value;
@@ -14,5 +9,8 @@ public class Node {
         this.x = x;
         this.y = y; 
         this.value = value;
+    }
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
