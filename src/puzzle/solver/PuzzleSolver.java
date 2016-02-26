@@ -7,6 +7,7 @@ public class PuzzleSolver {
 
     public static void main(String[] args) {
         PuzzleSolverModel model = getModelParameters();
+        printPuzzle(model.root.puzzle);
         switch(model.searchMode){
             case 1:
                 breadthFirst(model);
@@ -23,6 +24,7 @@ public class PuzzleSolver {
     private static void breadthFirst(PuzzleSolverModel model) {
         LinkedQueue open = new LinkedQueue();
         LinkedQueue closed = new LinkedQueue();
+        
         
     }
 
@@ -67,7 +69,17 @@ public class PuzzleSolver {
         int prevValue = -1;
         for(int i = 0; i < shuffleCount; i++){
             //check possible positions and see if value is there to be shuffled
-            ArrayList<Node> possibleSwaps = getPossibleSwaps(curX, curY, puzzle, prevValue);
+            ArrayList<Node> possibleSwaps = new ArrayList<Node>();
+            
+            if(curX + 1 < puzzle.length){
+               possibleSwaps.add(puzzle[curX+1][curY]);
+            }if(curX - 1 >= 0){
+               possibleSwaps.add(puzzle[curX-1][curY]);
+            }if(curY + 1 < puzzle.length){
+               possibleSwaps.add(puzzle[curX][curY+1]);
+            }if(curY - 1 >= 0){
+               possibleSwaps.add(puzzle[curX][curY-1]);
+            }
             
             //make a random selection that wasn't the same as the last one
             Random rand = new Random();
@@ -77,7 +89,7 @@ public class PuzzleSolver {
             Node selectedNode = new Node(-1,-1,-1);
             
             //generate number until it isn't the previous or isn't the initialized value
-            while(num == -1){
+            while(num == -1 || selectedNode.value == prevValue){
                 num = rand.nextInt(possibleSwaps.size());
                 selectedNode = possibleSwaps.get(num);
             }
@@ -169,24 +181,5 @@ public class PuzzleSolver {
             }
             System.out.println("");
         }
-    }
-
-    private static ArrayList<Node> getPossibleSwaps(int curX, int curY, Node[][] puzzle, int prevValue) {
-        ArrayList<Node> possibleSwaps = new ArrayList<Node>();
-
-        //only returns possible swaps, negates the previous value
-        if (curX + 1 < puzzle.length && puzzle[curX + 1][curY].value != prevValue) {
-            possibleSwaps.add(puzzle[curX + 1][curY]);
-        }
-        if (curX - 1 >= 0 && puzzle[curX - 1][curY].value != prevValue) {
-            possibleSwaps.add(puzzle[curX - 1][curY]);
-        }
-        if (curY + 1 < puzzle.length && puzzle[curX][curY + 1].value != prevValue) {
-            possibleSwaps.add(puzzle[curX][curY + 1]);
-        }
-        if (curY - 1 >= 0 && puzzle[curX][curY - 1].value != prevValue) {
-            possibleSwaps.add(puzzle[curX][curY - 1]);
-        }
-        return possibleSwaps;
     }
 }
