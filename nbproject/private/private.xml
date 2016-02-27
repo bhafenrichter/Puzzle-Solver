@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bhafenri/Documents/NetBeansProjects/Puzzle-Solver/src/puzzle/solver/Node.java</file>
-            <file>file:/C:/Users/bhafenri/Documents/NetBeansProjects/Puzzle-Solver/src/puzzle/solver/PuzzleSolverModel.java</file>
-            <file>file:/C:/Users/bhafenri/Documents/NetBeansProjects/Puzzle-Solver/src/puzzle/solver/PuzzleSolver.java</file>
+            <file>file:/C:/Users/Brandon/Documents/GitHub/Puzzle-Solver/src/puzzle/solver/LinkedQueue.java</file>
+            <file>file:/C:/Users/Brandon/Documents/GitHub/Puzzle-Solver/src/puzzle/solver/PuzzleSolver.java</file>
+            <file>file:/C:/Users/Brandon/Documents/GitHub/Puzzle-Solver/src/puzzle/solver/PuzzleNode.java</file>
+            <file>file:/C:/Users/Brandon/Documents/GitHub/Puzzle-Solver/src/puzzle/solver/PuzzleSolverModel.java</file>
         </group>
     </open-files>
 </project-private>
