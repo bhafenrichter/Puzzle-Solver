@@ -10,11 +10,11 @@ public class PuzzleSolver {
         
         System.out.println("Goal:");
         try {
-            printPuzzle(new PuzzleNode(model.goalState), 0);
+            printPuzzle(new PuzzleNode(model.goalState), model.goalState, 0);
         } catch (CloneNotSupportedException ex) { }
         System.out.println("Start State (" + model.numberOfShuffles + " shuffle moves actually made)");
         System.out.println("Starting Board");
-        printPuzzle(model.root,0);
+        printPuzzle(model.root,model.goalState, 0);
         
         System.out.println("Working...");
         
@@ -51,8 +51,8 @@ public class PuzzleSolver {
             cur.children = getPuzzleNodeChildren(cur);
             //we've found the goal state we've been looking for
             if (comparePuzzles(cur.puzzle, model.goalState)) {
-                printPuzzle(cur,0);
-                showFinalResults(cur);
+                printPuzzle(cur, model.goalState, 0);
+                showFinalResults(cur, model.goalState);
                 break;
             } else {
                 //add the children to the queue
@@ -214,7 +214,7 @@ public class PuzzleSolver {
         return true;
     }
 
-    private static void printPuzzle(PuzzleNode pn, int depth) {
+    private static void printPuzzle(PuzzleNode pn, Node[][] goalState, int depth) {
         System.out.println("");
         for (int i = 0; i < pn.puzzle.length; i++) {
             for (int j = 0; j < pn.puzzle[0].length; j++) {
@@ -227,7 +227,7 @@ public class PuzzleSolver {
             }
             System.out.println("");
         }
-        System.out.println("(Raw Score: " + pn.computeRawScore() + " Depth = " +  depth + " Total Score = " + pn.computeTotalScore(depth));
+        System.out.println("(Raw Score: " + pn.getRawScore(goalState)+ " Depth = " +  depth + " Total Score = " + pn.getBreadthTotalScore(goalState));
     }
 
     private static boolean isInQueues(LinkedQueue open, LinkedQueue closed, PuzzleNode child) {
@@ -301,7 +301,7 @@ public class PuzzleSolver {
         return puzzles;
     }
 
-    private static void showFinalResults(PuzzleNode cur) {
+    private static void showFinalResults(PuzzleNode cur, Node[][] goalState) {
         KeyboardInputClass input = new KeyboardInputClass();
         
         ArrayList<PuzzleNode> puzzles = new ArrayList<PuzzleNode>();
@@ -318,7 +318,8 @@ public class PuzzleSolver {
             if(str.toLowerCase().equals("s")){
                 input.getKeyboardInput("");
             }
-            printPuzzle(puzzles.get(i),0);
+            printPuzzle(puzzles.get(i), goalState, puzzles.get(i).getDepth());
         }
+        
     }
 }

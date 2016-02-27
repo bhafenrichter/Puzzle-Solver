@@ -31,6 +31,27 @@ public class PuzzleNode implements Cloneable{
         return depth;
     }
     
+    public int getRawScore(Node[][] goalState) {
+        int rawScore = 0;
+        for (int i = 0; i < goalState.length; i++) {
+            for (int j = 0; j < goalState.length; j++) {
+                if (puzzle[i][j].value != goalState[i][j].value) {
+                    rawScore++;
+                }
+            }
+        }
+        return rawScore;
+    }
+    
+    public int getBreadthTotalScore(Node[][] goalState){
+        //return getRawScore(goalState) + getDepth();
+        return 0;
+    }
+    
+    public int getBestTotalScore(){
+        return 0;
+    }
+    
     public int computeRawScore() {
         return 0;
     }
