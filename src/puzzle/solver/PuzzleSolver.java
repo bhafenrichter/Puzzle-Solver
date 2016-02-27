@@ -41,9 +41,9 @@ public class PuzzleSolver {
             //get the next puzzle in queue
             PuzzleNode cur = (PuzzleNode) open.dequeue();
             
-            //check to see if we've changed depths
+            //check to see if we've changed depths. Adds one to open count because it doesn't account for current one that was dequeued
             if(currentDepth != cur.getDepth()){
-                System.out.println("Time at depth " + cur.getDepth() + " = " + 5 + "(Nodes in OPEN = " + open.count() + "; CLOSED = " + closed.count());
+                System.out.println("Time at depth " + cur.getDepth() + " = " + 5 + "(Nodes in OPEN = " + (open.count() + 1) + "; CLOSED = " + closed.count());
                 currentDepth = cur.getDepth();
             }
             
@@ -52,6 +52,7 @@ public class PuzzleSolver {
             //we've found the goal state we've been looking for
             if (comparePuzzles(cur.puzzle, model.goalState)) {
                 printPuzzle(cur,0);
+                showFinalResults(cur);
                 break;
             } else {
                 //add the children to the queue
@@ -298,5 +299,26 @@ public class PuzzleSolver {
 
         }
         return puzzles;
+    }
+
+    private static void showFinalResults(PuzzleNode cur) {
+        KeyboardInputClass input = new KeyboardInputClass();
+        
+        ArrayList<PuzzleNode> puzzles = new ArrayList<PuzzleNode>();
+        puzzles.add(cur);
+        while(cur != null){
+            puzzles.add(cur.parent);
+            cur = cur.parent;
+        }
+        String str = input.getKeyboardInput("Success! Press ENTER to show all boards; Press S to step through:");
+        
+        
+
+        for(int i = puzzles.size() - 2; i >= 0; i--){
+            if(str.toLowerCase().equals("s")){
+                input.getKeyboardInput("");
+            }
+            printPuzzle(puzzles.get(i),0);
+        }
     }
 }
